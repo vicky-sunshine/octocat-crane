@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require 'readline'
+require './lib/octocatdesc/octocats.rb'
+require 'fuzzy_match'
+
+puts '    ___     _                  _             _____                '
+puts '   /___\___| |_ ___   ___ __ _| |_    ___   / ___ \   /\___/\     '
+puts '  //  // __| __/ _ \ / __/ _` | __|  / _ \ / /   \ \ ( O.O   )   o'
+puts ' / \_// (__| || (_) | (_| (_| | |_  |     / / /\_/ / (u  u  , ) / '
+puts ' \___/ \___|\__\___/ \___\__,_|\__|  \_____/  \___/ {}{}{}{}{}{}  '
+
+cats = OctocatCrane::Octocat.new
+
+while buf = Readline.readline('> ', true)
+  if buf == 'octocats'
+    cat_found = cats.octocat_name
+    cat_found.each do |element|
+      puts element
+    end
+  end
+  if buf[0..5] == 'search'
+    keyword = buf.split(' ')[1]
+    result = cats.search_octocat(keyword)
+
+    puts "cat name:  #{result[0]}"
+    puts "cat id:    #{result[1][0]}"
+    puts "cat url:   #{result[1][1]}"  
+  end
+end
